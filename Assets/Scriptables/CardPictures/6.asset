@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4da9bb723a3f04428e71148b93cc843, type: 3}
+  m_Name: 6
+  m_EditorClassIdentifier: 
+  cardPictureID: 6
+  cardDefaultSprite: {fileID: 1228631478, guid: 1c183beb83ac6ef4b9a2f15c74643393, type: 3}
+  cardPictureSprite: {fileID: 540030807, guid: 1c183beb83ac6ef4b9a2f15c74643393, type: 3}
