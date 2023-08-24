@@ -60,9 +60,10 @@ public class GameManager : MonoBehaviour
                 cardsFlipped[1].ShowEffectOnMatch();
 
                 
-                if (continuityTimer == 0)
+                if (continuityTimer <= 0)
                 {
                     Constant.Score += 100;
+                    continuityTimer = 5;
                     StartCoroutine(CheckContinuityTimer());
                 }
                 else
@@ -77,8 +78,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 //Debug.LogError("Cards Not Matched");
-                cardsFlipped[0].FlipBack();
-                cardsFlipped[1].FlipBack();
+                cardsFlipped[0].FlipBack(true);
+                cardsFlipped[1].FlipBack(true);
 
             }
 
@@ -101,11 +102,12 @@ public class GameManager : MonoBehaviour
     {
         do
         {
-            continuityTimer -= 0.1f;
+            continuityTimer -= 0.01f;
             gameplayUIHandler.UpdateContinuityTimer(continuityTimer/5);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
 
         } while (continuityTimer>0);
+        continuityTimer = 0;
     }
 
 

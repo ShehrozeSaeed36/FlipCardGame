@@ -34,11 +34,26 @@ public class CardShuffleHandler : MonoBehaviour
                 do
                 {
                     tempCardForConfiguration = allCards[Random.Range(0, allCards.Count)];
-                } while (tempCardForConfiguration.isCardConfigured);
-
+                } while (tempCardForConfiguration.isConfigured);
                 tempCardForConfiguration.Setup(cardPicturesCollection.allCardPictures[tempCardNo-1].cardPictureID, cardPicturesCollection.allCardPictures[tempCardNo-1].cardDefaultSprite, cardPicturesCollection.allCardPictures[tempCardNo-1].cardPictureSprite);
+                tempCardForConfiguration.Flip(false);
             }
 
+
+        }
+
+        Invoke(nameof(FlippAllCardsBack),1f);
+       
+    }
+
+    void FlippAllCardsBack()
+    {
+        foreach (var item in allCards)
+        {
+            if (item.isConfigured)
+            {
+                item.FlipBack(false);
+            }
 
         }
     }

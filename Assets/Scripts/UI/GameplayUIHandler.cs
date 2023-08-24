@@ -9,6 +9,11 @@ public class GameplayUIHandler : MonoBehaviour
     public GameObject levelCompleteScreen, levelFailScreen;
     public TMP_Text score, turns;
     public Image timer;
+
+    private void Start()
+    {
+        UpdateScore();
+    }
     public void UpdateContinuityTimer(float continuityTimerFillAmount)
     {
         timer.fillAmount = continuityTimerFillAmount;

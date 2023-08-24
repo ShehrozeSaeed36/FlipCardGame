@@ -7,7 +7,7 @@ public class Card : MonoBehaviour
 {
     public int cardID = -1;
 
-    public bool isCardConfigured;
+    public bool isConfigured;
     public Image defaultImage, imageForFlashEffect;
     public Sprite defaultSprite, flippedSprite;
   
@@ -16,7 +16,7 @@ public class Card : MonoBehaviour
     public void Setup(int _cardID,Sprite _defaultSprite, Sprite _flippedSprite)
     {
         cardID = _cardID;
-        isCardConfigured = true;
+        isConfigured = true;
 
         defaultSprite = _defaultSprite;
         flippedSprite = _flippedSprite;
@@ -33,23 +33,28 @@ public class Card : MonoBehaviour
         imageForFlashEffect.gameObject.SetActive(false);
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         gameObject.SetActive(false);
-        isCardConfigured = false;
+        isConfigured = false;
         isCardFlipped = false;
     }
 
-    public void Flip()
+    public void Flip(bool playSFX)
     {
         if(isCardFlipped)
             return;
 
-        StartCoroutine(FlipMe());
+        if (playSFX)
+            GameManager.instance.soundManager.PlayCardFlipSound();
+        StartCoroutine(FlipMe(playSFX));
     }
 
-    public void FlipBack()
+    public void FlipBack(bool playSFX)
     {
         if (!isCardFlipped)
             return;
 
+
+        if (playSFX)
+            GameManager.instance.soundManager.PlayCardFlipSound();
         StartCoroutine(FlipMeBack());
     }
 
@@ -59,7 +64,7 @@ public class Card : MonoBehaviour
     }
 
 
-    private IEnumerator FlipMe()
+    private IEnumerator FlipMe(bool checkOnCardFlip)
     {
         for (float i = 0f; i <= 180f; i += 10f)
         {
@@ -74,8 +79,9 @@ public class Card : MonoBehaviour
         isCardFlipped = true;
         yield return new WaitForSeconds(0.5f);
         
+        if(checkOnCardFlip)
         GameManager.instance.CheckOnCardFlip(this);
-        GameManager.instance.soundManager.PlayCardFlipSound();
+      
     }
 
     private IEnumerator FlipMeBack()
@@ -91,7 +97,7 @@ public class Card : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        GameManager.instance.soundManager.PlayCardFlipSound();
+      
         isCardFlipped = false;
     }
 

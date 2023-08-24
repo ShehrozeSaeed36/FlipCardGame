@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
         cardsLayoutHandler.AdjustCardsLayoutByLevelNumber(Constant.LevelNum);
         GameManager.instance.noOfTurnsForLevel = levelMetas[Constant.LevelNum - 1].noOfTurns;
         GameManager.instance.gameplayUIHandler.UpdateTurnsCount(GameManager.instance.noOfTurnsForLevel);
+
         cardShuffleHandler.ShuffleCards(levelMetas[Constant.LevelNum-1].cardPicturesCountToMatchByLevelNum);
         Invoke(nameof(ActionsAfterLevelLoad),2);
     }
