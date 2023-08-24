@@ -56,6 +56,9 @@ public class GameManager : MonoBehaviour
                     matchingCardsIdsList.Remove(cardsFlipped[0].cardID);
                 }
                 //Debug.LogError("Cards Matched");
+
+                GameManager.instance.soundManager.PlayCardMatchSound();
+
                 cardsFlipped[0].ShowEffectOnMatch();
                 cardsFlipped[1].ShowEffectOnMatch();
 
@@ -73,11 +76,13 @@ public class GameManager : MonoBehaviour
                 }
 
                 gameplayUIHandler.UpdateScore();
-                CheckLevelCompleteStatus();
+                if (CheckLevelCompleteStatus())
+                    return;
             }
             else
             {
                 //Debug.LogError("Cards Not Matched");
+                GameManager.instance.soundManager.PlayCardNotMatchSound();
                 cardsFlipped[0].FlipBack(true);
                 cardsFlipped[1].FlipBack(true);
 
@@ -90,6 +95,7 @@ public class GameManager : MonoBehaviour
 
         if (noOfTurnsForLevel <= 0)
         {
+            continuityTimer = 0;
             gameplayUIHandler.OnLevelFail();
         }
 
@@ -107,6 +113,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
 
         } while (continuityTimer>0);
+        gameplayUIHandler.UpdateContinuityTimer(0);
         continuityTimer = 0;
     }
 
@@ -115,6 +122,7 @@ public class GameManager : MonoBehaviour
     {
         if (matchingCardsIdsList.Count == 0)
         {
+            continuityTimer = 0;
             gameplayUIHandler.OnLevelComplete();
             return true;
         }

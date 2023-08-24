@@ -44,4 +44,9 @@ public class GameplayUIHandler : MonoBehaviour
         GameManager.instance.GoHome();
     }
 
+    public void RetryLevel()
+    {
+        GameManager.instance.LoadGame();
+    }
+
 }

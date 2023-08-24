@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel()
     {
         cardsLayoutHandler.ToggleGridLayout(true);
-        cardsLayoutHandler.AdjustCardsLayoutByLevelNumber(Constant.LevelNum);
+        cardsLayoutHandler.AdjustCardsLayoutByLevelNumber(Constant.LevelNum-1);
         GameManager.instance.noOfTurnsForLevel = levelMetas[Constant.LevelNum - 1].noOfTurns;
         GameManager.instance.gameplayUIHandler.UpdateTurnsCount(GameManager.instance.noOfTurnsForLevel);
 

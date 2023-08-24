@@ -941,7 +941,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 739753884}
         m_TargetAssemblyTypeName: GameplayUIHandler, Assembly-CSharp
-        m_MethodName: HomePressed
+        m_MethodName: RetryLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1427,7 +1427,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2ea44905231cff54394c6e4aacbb2a77, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -7679,11 +7679,11 @@ MonoBehaviour:
     cardPicturesCountToMatchByLevelNum: 4
   - noOfTurns: 12
     cardPicturesCountToMatchByLevelNum: 5
-  - noOfTurns: 0
+  - noOfTurns: 14
     cardPicturesCountToMatchByLevelNum: 6
-  - noOfTurns: 15
+  - noOfTurns: 16
     cardPicturesCountToMatchByLevelNum: 8
-  - noOfTurns: 18
+  - noOfTurns: 19
     cardPicturesCountToMatchByLevelNum: 10
   - noOfTurns: 22
     cardPicturesCountToMatchByLevelNum: 12

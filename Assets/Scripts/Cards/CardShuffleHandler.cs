@@ -13,6 +13,7 @@ public class CardShuffleHandler : MonoBehaviour
    
     public void ShuffleCards(int noOfImagesToMatch)
     {
+        cardIDs.Clear();
         foreach (var item in allCards)
         {
             item.DisableMe();
