@@ -6,9 +6,11 @@ public class CardShuffleHandler : MonoBehaviour
 {
     public List<Card> allCards;
     public CardPicturesCollection cardPicturesCollection;
-    //public 
-    int cardsToShuffleCount = 0;
+
+    List<int> cardIDs =  new List<int>();
     int tempCardNo;
+    Card tempCardForConfiguration;
+   
     public void ShuffleCards(int noOfImagesToMatch)
     {
         foreach (var item in allCards)
@@ -18,11 +20,26 @@ public class CardShuffleHandler : MonoBehaviour
 
         for (int i = 0; i < noOfImagesToMatch; i++)
         {
-            
-            //do
-            //{
 
-            //} while (true);
+            do
+            {
+                tempCardNo = cardPicturesCollection.allCardPictures[Random.Range(0, cardPicturesCollection.allCardPictures.Count)].cardPictureID;
+            } while (cardIDs.Contains(tempCardNo));
+
+            cardIDs.Add(tempCardNo);
+            GameManager.instance.matchingCardsIdsList.Add(tempCardNo);
+
+            for (int j = 0; j < 2; j++)
+            {
+                do
+                {
+                    tempCardForConfiguration = allCards[Random.Range(0, allCards.Count)];
+                } while (tempCardForConfiguration.isCardConfigured);
+
+                tempCardForConfiguration.Setup(cardPicturesCollection.allCardPictures[tempCardNo-1].cardPictureID, cardPicturesCollection.allCardPictures[tempCardNo-1].cardDefaultSprite, cardPicturesCollection.allCardPictures[tempCardNo-1].cardPictureSprite);
+            }
+
+
         }
     }
 }

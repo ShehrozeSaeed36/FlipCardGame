@@ -16,7 +16,10 @@ public class MenuUIHandler : MonoBehaviour
     {
         mainPanel.SetActive(false);
         loadingScreen.SetActive(true);
+        Invoke(nameof(LoadGameplayScene), 1);
+    }
+   void LoadGameplayScene()
+    {
         SceneManager.LoadSceneAsync(SceneNames.Gameplay.ToString());
     }
-
 }

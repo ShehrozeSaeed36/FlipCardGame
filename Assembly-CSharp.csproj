@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Utility\Constant.cs" />
     <Compile Include="Assets\Scripts\SoundManager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Cards\CardsLayoutHandler.cs" />
+    <Compile Include="Assets\Scripts\Utility\RotateOnAngle.cs" />
     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>

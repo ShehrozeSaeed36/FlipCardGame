@@ -22,6 +22,9 @@ public class Constant : MonoBehaviour
         }
         set
         {
+            if(value == 8)
+                PlayerPrefs.SetInt("LevelNum", 1);
+            else
             PlayerPrefs.SetInt("LevelNum", value);
         }
     }

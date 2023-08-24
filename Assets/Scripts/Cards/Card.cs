@@ -5,23 +5,23 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    [HideInInspector]
     public int cardID = -1;
 
-    public Image defaultImage;
+    public bool isCardConfigured;
+    public Image defaultImage, imageForFlashEffect;
     public Sprite defaultSprite, flippedSprite;
-
+  
     bool isCardFlipped;
 
     public void Setup(int _cardID,Sprite _defaultSprite, Sprite _flippedSprite)
     {
         cardID = _cardID;
+        isCardConfigured = true;
 
-        
         defaultSprite = _defaultSprite;
         flippedSprite = _flippedSprite;
 
-
+        imageForFlashEffect.gameObject.SetActive(false);
         defaultImage.sprite = defaultSprite;
         isCardFlipped = false;
         gameObject.SetActive(true);
@@ -30,7 +30,10 @@ public class Card : MonoBehaviour
     public void DisableMe()
     {
         cardID = -1;
+        imageForFlashEffect.gameObject.SetActive(false);
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         gameObject.SetActive(false);
+        isCardConfigured = false;
         isCardFlipped = false;
     }
 
@@ -52,7 +55,7 @@ public class Card : MonoBehaviour
 
     public void ShowEffectOnMatch()
     {
-
+        StartCoroutine(EffectOnCardMatch());
     }
 
 
@@ -67,25 +70,25 @@ public class Card : MonoBehaviour
             }
             yield return new WaitForSeconds(0.01f);
         }
+        
+        isCardFlipped = true;
+        yield return new WaitForSeconds(0.5f);
+        
         GameManager.instance.CheckOnCardFlip(this);
         GameManager.instance.soundManager.PlayCardFlipSound();
-        isCardFlipped = true;
     }
 
     private IEnumerator FlipMeBack()
     {
 
-        if (!isCardFlipped)
+        for (float i = 180f; i >= 0f; i -= 10f)
         {
-            for (float i = 0f; i <= 180f; i += 10f)
+            transform.rotation = Quaternion.Euler(0f, i, 0f);
+            if (i == 90f)
             {
-                transform.rotation = Quaternion.Euler(0f, i, 0f);
-                if (i == 90f)
-                {
-                    defaultImage.sprite = defaultSprite;
-                }
-                yield return new WaitForSeconds(0.01f);
+                defaultImage.sprite = defaultSprite;
             }
+            yield return new WaitForSeconds(0.01f);
         }
 
         GameManager.instance.soundManager.PlayCardFlipSound();
@@ -93,5 +96,10 @@ public class Card : MonoBehaviour
     }
 
 
-
+    private IEnumerator EffectOnCardMatch()
+    {
+        imageForFlashEffect.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        DisableMe();
+    }
 }

@@ -32,8 +32,6 @@ public class CardsLayoutHandler : MonoBehaviour
     public void AdjustCardsLayoutByLevelNumber(int levelNumber)
     {
         currentLayout = cardsLayoutsByLevels[levelNumber];
-
-
         cardsGridLayoutGroup.constraintCount = currentLayout.noOfColOrRow;
         
         if (currentLayout.sortType == CardsSortsType.ByColoumn)
@@ -44,6 +42,11 @@ public class CardsLayoutHandler : MonoBehaviour
         cardsGridLayoutGroup.cellSize = new Vector2(currentLayout.cardsWidthHeightMultiplier.x * cardsWidthHeight.x, currentLayout.cardsWidthHeightMultiplier.y * cardsWidthHeight.y);
         cardsGridLayoutGroup.spacing = new Vector2(currentLayout.cardsDistanceMultiplier.x * cardsDistance.x, currentLayout.cardsDistanceMultiplier.y * cardsDistance.y);
 
+    }
+
+    public void ToggleGridLayout(bool toggle)
+    {
+        cardsGridLayoutGroup.enabled = toggle;
     }
 
 

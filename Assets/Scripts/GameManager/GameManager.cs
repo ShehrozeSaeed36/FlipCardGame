@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
 
     public List<int> matchingCardsIdsList;
     public List<Card> cardsFlipped;
+
+    public int noOfTurnsForLevel;
+    float continuityTimer = 0;
     private void Awake()
     {
         matchingCardsIdsList = new List<int>();
@@ -36,7 +39,13 @@ public class GameManager : MonoBehaviour
 
     public void CheckOnCardFlip(Card recentFlippedCard)
     {
+
         cardsFlipped.Add(recentFlippedCard);
+
+        if (cardsFlipped.Count % 2 == 0)
+        {
+            noOfTurnsForLevel--;
+        }
 
         if (cardsFlipped.Count > 1)
         {
@@ -46,23 +55,59 @@ public class GameManager : MonoBehaviour
                 {
                     matchingCardsIdsList.Remove(cardsFlipped[0].cardID);
                 }
-
+                //Debug.LogError("Cards Matched");
                 cardsFlipped[0].ShowEffectOnMatch();
                 cardsFlipped[1].ShowEffectOnMatch();
+
+                
+                if (continuityTimer == 0)
+                {
+                    Constant.Score += 100;
+                    StartCoroutine(CheckContinuityTimer());
+                }
+                else
+                {
+                    Constant.Score += 200;
+                    continuityTimer = 5;
+                }
+
+                gameplayUIHandler.UpdateScore();
                 CheckLevelCompleteStatus();
             }
             else
             {
+                //Debug.LogError("Cards Not Matched");
                 cardsFlipped[0].FlipBack();
                 cardsFlipped[1].FlipBack();
+
             }
 
+            cardsFlipped.Remove(cardsFlipped[0]);
+            cardsFlipped.Remove(cardsFlipped[0]);
 
-            cardsFlipped.Remove(cardsFlipped[0]);
-            cardsFlipped.Remove(cardsFlipped[0]);
         }
-    
+
+        if (noOfTurnsForLevel <= 0)
+        {
+            gameplayUIHandler.OnLevelFail();
+        }
+
+        
+        gameplayUIHandler.UpdateTurnsCount(noOfTurnsForLevel);
     }
+
+
+    IEnumerator CheckContinuityTimer()
+    {
+        do
+        {
+            continuityTimer -= 0.1f;
+            gameplayUIHandler.UpdateContinuityTimer(continuityTimer/5);
+            yield return new WaitForSeconds(0.1f);
+
+        } while (continuityTimer>0);
+    }
+
 
     public bool CheckLevelCompleteStatus()
     {
